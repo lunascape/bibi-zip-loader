@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  visibility: hidden;
+}
+.entries {
+  height: 100vh;
+  overflow: auto;
+}
+.entries select {
+  height: 100vh;
+}
+
+.content {
+  height: 100vh;
+  flex: 1;
+  background: url("./board.svg");
+  overflow: auto;
+}
+.text {
+  height: 100vh;
+  padding: 10px;
+  overflow: auto;
+}
+.text pre {
+  color: white;
+  margin: 0;
+}
+.image {
+  margin: 0;
+}

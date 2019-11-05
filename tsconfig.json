@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "inlineSourceMap": true,
+    "moduleResolution": "node",
+    "outDir": "lib",
+    "declaration": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/lszl"
+  ]
+}
