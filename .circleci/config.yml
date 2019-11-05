@@ -1,21 +1,19 @@
 version: 2.1
 
-executors:
-  wasmpack:
+jobs:
+  build:
     docker:
       - image: ryokik/circleci-wasm-pack:0.8.1
     working_directory: ~/bibi-zip-loader
-
-jobs:
-  build:
-    executor: wasmpack
     steps:
       - checkout
       - run: npm install
       - run: npm run build
 
   release:
-    executor: wasmpack
+    docker:
+      - image: ryokik/circleci-wasm-pack:0.8.1
+    working_directory: ~/bibi-zip-loader
     steps:
       - checkout
       - run: git tag v$(node -pe "require('./package.json').version")
