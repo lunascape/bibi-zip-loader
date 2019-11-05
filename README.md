@@ -1,7 +1,7 @@
-LSZL
-====
+Bibi Zip Loader
+===============
 
-Lunascape Zip Loader
+Zip Loader for Bibi
 
 Requiements
 -----------

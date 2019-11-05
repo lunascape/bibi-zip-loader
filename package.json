@@ -1,7 +1,7 @@
 {
-  "name": "lszl",
+  "name": "bibi-zip-loader",
   "version": "0.6.2",
-  "description": "Lunascape zip loader",
+  "description": "Bibi zip loader",
   "main": "dist/lszl.js",
   "types": "dist/lszl.d.ts",
   "scripts": {

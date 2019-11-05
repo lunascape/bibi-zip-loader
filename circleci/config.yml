@@ -1,0 +1,35 @@
+version: 2.1
+
+executors:
+  wasmpack:
+    docker:
+      - image: ryokik/circleci-wasm-pack:0.8.1
+    working_directory: ~/lszl
+
+jobs:
+  build:
+    executor: wasmpack
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+
+  release:
+    executor: wasmpack
+    steps:
+      - checkout
+      - run: git tag v$(node -pe "require('./package.json').version")
+      - run: git push origin v$(node -pe "require('./package.json').version")
+      - run: npm install
+      - run: npm run release
+
+workflows:
+  build:
+    jobs:
+      - build
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: /^release.*/
