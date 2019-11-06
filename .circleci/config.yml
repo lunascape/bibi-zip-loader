@@ -19,7 +19,7 @@ jobs:
       - run: git tag v$(node -pe "require('./package.json').version")
       - run: git push origin v$(node -pe "require('./package.json').version")
       - run: npm install
-      - run: npm run release
+      - run: npx release-it
 
 workflows:
   build:
