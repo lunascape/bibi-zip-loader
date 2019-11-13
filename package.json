@@ -1,6 +1,6 @@
 {
   "name": "bibi-zip-loader",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Bibi Zip Loader",
   "main": "dist/lszl.js",
   "types": "dist/lszl.d.ts",
