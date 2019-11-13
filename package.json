@@ -11,7 +11,7 @@
     "prepack": "$npm_execpath run build"
   },
   "author": "Lunascape",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -41,6 +41,5 @@
     "dist/lszl.d.ts",
     "dist/lszl.js",
     "dist/lszlw.js"
-  ],
-  "private": true
+  ]
 }
