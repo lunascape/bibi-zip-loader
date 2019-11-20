@@ -1,7 +1,7 @@
 {
   "name": "bibi-zip-loader",
-  "version": "0.6.2",
-  "description": "Bibi zip loader",
+  "version": "0.7.0",
+  "description": "Bibi Zip Loader",
   "main": "dist/lszl.js",
   "types": "dist/lszl.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "prepack": "$npm_execpath run build"
   },
   "author": "Lunascape",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -41,6 +41,5 @@
     "dist/lszl.d.ts",
     "dist/lszl.js",
     "dist/lszlw.js"
-  ],
-  "private": true
+  ]
 }
