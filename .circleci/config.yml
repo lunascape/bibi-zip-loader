@@ -19,6 +19,7 @@ jobs:
       - run: git tag v$(node -pe "require('./package.json').version")
       - run: git push origin v$(node -pe "require('./package.json').version")
       - run: npm install
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/bibi-zip-loader/.npmrc
       - run: npx release-it
 
 workflows:
