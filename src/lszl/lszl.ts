@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime';
 import WorkerWrapper from './worker-wrapper';
+import { isIE } from '../util/browser'
 
 const LANE_MULTIPLY = 4;
 
@@ -24,6 +25,7 @@ export default class LSZL {
       const firstWorker = new WorkerWrapper({
         url: this.url,
         worker: this.params.worker,
+        noUseCache: isIE(),
         forceInMemoryCache: this.params.forceInMemoryCache,
         forceKeepCache: this.params.forceKeepCache,
       });
@@ -38,6 +40,7 @@ export default class LSZL {
         const coworker = new WorkerWrapper({
           url: this.url,
           worker: this.params.worker,
+          noUseCache: isIE(),
           forceKeepCache: true,
         });
         coworker.onFallback = () => this.fallback(coworker);

@@ -35,10 +35,11 @@ onmessage = (ev: MessageEvent) => {
   const { type, meta } = message;
 
   if (type === MessageType.INIT) {
-    const { payload: { url, forceInMemoryCache, forceKeepCache } } = message as InitRequestMessage;
+    const { payload: { url, forceInMemoryCache, forceKeepCache, noUseCache } } = message as InitRequestMessage;
     prepare.attachPromise((async () => {
       const lsuzrw = new LSZRWrapper({
         url,
+        noUseCache,
         forceInMemoryCache,
         forceKeepCache,
         onUpdateState: (state) => {

@@ -20,11 +20,12 @@ export default class LSZRWrapper {
   private state: WorkerState;
   private init: Promise<LSZR>;
   private inMemoryCache: Promise<ArrayBuffer>;
-  private storage: FragmentStorage;
+  private storage?: FragmentStorage;
 
   public constructor(
     private params: {
       url: string,
+      noUseCache?: boolean,
       forceKeepCache?: boolean,
       forceInMemoryCache?: boolean,
       onUpdateState: (state: WorkerState) => void;
@@ -33,10 +34,12 @@ export default class LSZRWrapper {
       entryNames: [],
       fallback: false
     };
-    this.storage = new FragmentStorage({
-      url: params.url, 
-      forceKeepCache: params.forceKeepCache,
-    });
+    if (!params.noUseCache) {
+      this.storage = new FragmentStorage({
+        url: params.url,
+        forceKeepCache: params.forceKeepCache,
+      });
+    }
     this.prepare();
   }
 
@@ -45,8 +48,8 @@ export default class LSZRWrapper {
       return this.init;
     }
     const promise = (async () => {
-      const eocdCacheData = await this.storage.getFragment(EOCD_ENTRY_NAME);
-      const cdCacheData = await this.storage.getFragment(CD_ENTRY_NAME);
+      const eocdCacheData = this.storage && await this.storage.getFragment(EOCD_ENTRY_NAME);
+      const cdCacheData = this.storage && await this.storage.getFragment(CD_ENTRY_NAME);
       let eocdData = eocdCacheData;
       let cdData = cdCacheData;
       let lastChunk: DataChunk;
@@ -80,7 +83,9 @@ export default class LSZRWrapper {
         eocdRange.free();
 
         eocdData = lastChunk[0].slice(start, end);
-        await this.storage.putFragment(EOCD_ENTRY_NAME, eocdData).catch(console.warn);
+        if (this.storage) {
+          await this.storage.putFragment(EOCD_ENTRY_NAME, eocdData).catch(console.warn);
+        }
       }
 
       if (!cdData) {
@@ -110,7 +115,9 @@ export default class LSZRWrapper {
             }
           }
         }
-        await this.storage.putFragment(CD_ENTRY_NAME, cdData).catch(console.warn);
+        if (this.storage) {
+          await this.storage.putFragment(CD_ENTRY_NAME, cdData).catch(console.warn);
+        }
       }
 
       const entryNames = uzr.parseCD(new Uint8Array(cdData));
@@ -134,7 +141,7 @@ export default class LSZRWrapper {
   public getBuffer(name: string, signal: AbortSignal): Promise<Uint8Array> {
     const promise = this.prepare().then(async (uzr) => {
       throwIfAbort(signal);
-      const exists = await this.storage.getFragment(name, signal);
+      const exists = this.storage && await this.storage.getFragment(name, signal);
       if (exists) {
         throwIfAbort(signal);
         const data = uzr.getData(name, new Uint8Array(exists));
@@ -161,7 +168,9 @@ export default class LSZRWrapper {
           buff = inMemoryCache.slice(start, end + 1);
         }
       }
-      this.storage.putFragment(name, buff).catch(console.warn);
+      if (this.storage) {
+        this.storage.putFragment(name, buff).catch(console.warn);
+      }
       throwIfAbort(signal);
       const data = uzr.getData(name, new Uint8Array(buff));
       throwIfAbort(signal);
@@ -192,7 +201,9 @@ export default class LSZRWrapper {
         const end = start + range.size;
         range.free();
         const buff = inMemoryCache.slice(start, end + 1);
-        this.storage.putFragment(name, buff).catch(console.warn);
+        if (this.storage) {
+          this.storage.putFragment(name, buff).catch(console.warn);
+        }
       });
     });
     return this.inMemoryCache = promise;
