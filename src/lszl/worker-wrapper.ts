@@ -13,6 +13,7 @@ export default class WorkerWrapper {
       url: string,
       key?: string,
       worker?: string,
+      noUseCache?: boolean,
       forceInMemoryCache?: boolean,
       forceKeepCache?: boolean,
     }) {

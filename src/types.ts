@@ -31,6 +31,7 @@ export interface WorkerState {
 export type InitRequestMessage = RequestMessage<MessageType.INIT, {
   url: string,
   worker?: string,
+  noUseCache?: boolean,
   forceInMemoryCache?: boolean,
   forceKeepCache?: boolean,
 }>;
