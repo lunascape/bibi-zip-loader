@@ -1,3 +1,8 @@
+0.9.0
+-----
+
+- Fixed a bug that caused Warning in IE
+
 0.7.0
 -----
 

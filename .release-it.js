@@ -19,5 +19,7 @@ module.exports = {
         releaseNotes: `node -pe "require('fs').readFileSync('CHANGELOG.md', 'utf8').split(/(?:\\n)?\\d+\\.\\d+\\.\\d+(?:(?:-|\\+).*)?\\n-+\\n(?:\\n)?/g)[1]"`,
         tokenRef: 'PEGASUS_CI_GITHUB_TOKEN'
     },
-    npm: false
+    npm: {
+        publish: true
+    }
 };
