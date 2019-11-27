@@ -6,7 +6,7 @@ module.exports = {
     git: {
         commit: false,
         tag: true,
-        requireUpstream: true,
+        requireUpstream: false,
         push: true,
         tagName
     },
