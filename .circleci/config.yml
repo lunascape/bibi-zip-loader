@@ -19,6 +19,8 @@ jobs:
       - run: npm install
       - run: npm pack
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/bibi-zip-loader/.npmrc
+      - run: git config --global user.email "lunascape+circleci@users.noreply.github.com"
+      - run: git config --global user.name "circleci"
       - run: npx release-it $(node -pe "require('./package.json').version")
 
 workflows:
