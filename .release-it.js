@@ -5,9 +5,9 @@ const tagName = 'v' + package.version;
 module.exports = {
     git: {
         commit: false,
-        tag: false,
-        requireUpstream: false,
-        push: false,
+        tag: true,
+        requireUpstream: true,
+        push: true,
         tagName
     },
     github: {
